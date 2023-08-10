@@ -18,8 +18,8 @@ def decomp(zip_file,extracted_dirname,dex2jar_path):
                 cmd=f"{dex2jar_path} {file_path}"
                 try:
                     p=subprocess.run(cmd,shell=True,stderr=subprocess.PIPE)
-                except e:
-                    return "check dex3jar path"
+                except :
+                    return "check dex2jar path or file path"
                 file_list.append(file_path)
     return f'decompiled file {" | ".join(file_list)}'
     
