@@ -1,6 +1,6 @@
 ### code created by f0rk3b0mb
 ### 9 aug 2023
-### https://github.com/f0rk3b0mb/amatuerCTF_Censorship
+### https://github.com/f0rk3b0mb
 ### to automate apk reverse engineering for ctfs
 
 import sys
