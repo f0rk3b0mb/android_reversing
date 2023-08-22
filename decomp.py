@@ -1,14 +1,29 @@
+### code created by f0rk3b0mb
+### 9 aug 2023
+### https://github.com/f0rk3b0mb
+### to automate apk reverse engineering for ctf
+
 import os
-import zipfile
+#import zipfile
 import subprocess
 
-def decomp(zip_file,extracted_dirname,dex2jar_path):
-    zip_file_path = os.getcwd()+"/"+zip_file
+def decomp(apk_file,extracted_dirname,dex2jar_path):
+    apk_file_path = os.getcwd()+"/"+apk_file
     extracted_dir = os.getcwd()+"/"+extracted_dirname
     # Open the zip file
-    with zipfile.ZipFile(zip_file_path, 'r') as zip_ref:
+    #with zipfile.ZipFile(apk_file_path, 'r') as zip_ref:
     # Extract all contents to the specified directory
-        zip_ref.extractall(extracted_dir)
+    #    zip_ref.extractall(extracted_dir)
+
+    # decompile using apktool
+
+    cmd=f"apktool -r -s d {apk_file} -o {extracted_dirname} 1>/dev/null"
+    try:
+        p=subprocess.run(cmd,shell=True)
+    except :
+        return "check apktool path or if its installed"
+
+
     file_list = []
     
     for root, dirs, files in os.walk(extracted_dir):
@@ -21,6 +36,14 @@ def decomp(zip_file,extracted_dirname,dex2jar_path):
                 except :
                     return "check dex2jar path or file path"
                 file_list.append(file_path)
+    
+    cmd=f"rm -r {extracted_dirname} && apktool d {apk_file} -o {extracted_dirname}"
+    try:
+        p=subprocess.run(cmd,shell=True)
+    except :
+        return "attempting full decomp failed"
+    
+
     return f'decompiled file {" | ".join(file_list)}'
     
 
