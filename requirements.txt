@@ -1,3 +1,0 @@
-# jd-gui
-# dex2jar2.1
-# apktool 2.5.0-dirty
